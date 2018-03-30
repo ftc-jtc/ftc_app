@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Bas Koerts on 03/02/2018.
  */
-@TeleOp(name = "Drive", group = "TeleOp")
-@Disabled
+@TeleOp(name="Basic: drive", group="Driving")
+
 public class TeleOpMode_basic extends LinearOpMode
 {
     private DcMotor motorFrontLeft;
@@ -30,10 +30,9 @@ public class TeleOpMode_basic extends LinearOpMode
         while (opModeIsActive())
         {
             motorFrontLeft.setPower(gamepad1.left_stick_y);
-            motorFrontRight.setPower(gamepad1.left_stick_y);
-            motorRearLeft.setPower(gamepad1.left_stick_y);
-            motorRearRight.setPower(gamepad1.left_stick_y);
-
+            motorFrontRight.setPower(-gamepad1.right_stick_y);
+            motorRearLeft.setPower(gamepad1.right_stick_y);
+            motorRearRight.setPower(-gamepad1.left_stick_y);
 
             idle();
         }

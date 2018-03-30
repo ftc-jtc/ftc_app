@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-/**
- * Created by Bas Koerts on 26/03/2018.
- */
-@TeleOp(name = "Test", group = "TeleOp")
-@Disabled
-public class TeleOpMode_basic extends LinearOpMode
-{
+
+@TeleOp(name="Basic: drive-turn", group="Driving")
+
+public class Test_drive extends LinearOpMode {
+
     private DcMotor motorFrontLeft;
     private DcMotor motorRearLeft;
     private DcMotor motorFrontRight;
@@ -29,8 +26,14 @@ public class TeleOpMode_basic extends LinearOpMode
 
         while (opModeIsActive())
         {
-            motorFrontLeft.setPower(gamepad1.a);
-            motorFrontRight.setPower(gamepad1.b);
-            motorRearLeft.setPower(gamepad1.x);
-            motorRearRight.setPower(gamepad1.y);
+            motorFrontLeft.setPower(gamepad1.right_trigger);
+            motorFrontRight.setPower(gamepad1.right_trigger);
+            motorRearLeft.setPower(-gamepad1.left_trigger);
+            motorRearRight.setPower(-gamepad1.left_trigger);
 
+
+            idle();
+        }
+
+    }
+}
