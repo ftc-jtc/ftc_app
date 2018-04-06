@@ -15,19 +15,19 @@ public class TeleOpMode_main extends LinearOpMode
     private DcMotor motorFrontRight;
     private DcMotor motorRearRight;
 
-    private Servo servoLift;
     private Servo servoArmLift;
     private Servo servoArmLift2;
     private CRServo servoMotorLift;
 
-    private static final double LIFT_RETRACTED_POSITION = 0;
+    private static final double LIFT_RETRACTED_POSITION = 0.3;
     private static final double ARM_LIFT_EXTENDED_POSITION = 0.5;
-    private static final double LIFT_EXTENDED_POSITION = 1;
+    private static final double LIFT_EXTENDED_POSITION = 0.8;
+    private static final double ARM_LIFT_RETRACTED_POSITION = 0.0;
 
-    float fl_power = gamepad1.left_stick_y + gamepad1.right_trigger;
-    float fr_power = -gamepad1.right_stick_y + gamepad1.right_trigger;
-    float rl_power = gamepad1.right_stick_y - gamepad1.left_trigger;
-    float rr_power = -gamepad1.left_stick_y - gamepad1.left_trigger;
+    float fl_power;
+    float fr_power;
+    float rl_power;
+    float rr_power;
 
     @Override
     public void runOpMode () throws InterruptedException
@@ -37,7 +37,6 @@ public class TeleOpMode_main extends LinearOpMode
         motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
         motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
 
-        servoLift = hardwareMap.servo.get("servoLift");
         servoArmLift = hardwareMap.servo.get("servoArmLift");
         servoMotorLift = hardwareMap.crservo.get("servoMotorLift");
         servoArmLift2 = hardwareMap.servo.get("servoArmLift2");
@@ -49,35 +48,39 @@ public class TeleOpMode_main extends LinearOpMode
 
         while (opModeIsActive())
         {
+            fl_power = gamepad1.left_stick_y - gamepad1.right_trigger;
+            fr_power = -gamepad1.right_stick_y - gamepad1.right_trigger;
+            rl_power = gamepad1.right_stick_y + gamepad1.left_trigger;
+            rr_power = -gamepad1.left_stick_y + gamepad1.left_trigger;
+
             motorFrontLeft.setPower(fl_power);
             motorFrontRight.setPower(fr_power);
             motorRearLeft.setPower(rl_power);
             motorRearRight.setPower(rr_power);
 
-            if (gamepad2.a) {
-                servoLift.setPosition(LIFT_RETRACTED_POSITION);
-            }
-
-            if (gamepad2.b) {
-                servoLift.setPosition(LIFT_EXTENDED_POSITION);
-            }
 
             if (gamepad2.x) {
-                servoArmLift.setPosition(LIFT_RETRACTED_POSITION);
-                servoArmLift2.setPosition(LIFT_RETRACTED_POSITION);
+                servoArmLift.setPosition(ARM_LIFT_RETRACTED_POSITION);
             }
 
             if (gamepad2.y) {
                 servoArmLift.setPosition(ARM_LIFT_EXTENDED_POSITION);
+            }
+
+            if (gamepad2.left_bumper) {
+                servoArmLift2.setPosition(ARM_LIFT_RETRACTED_POSITION);
+            }
+
+            if (gamepad2.right_bumper){
                 servoArmLift2.setPosition(ARM_LIFT_EXTENDED_POSITION);
             }
 
             if (gamepad2.dpad_up) {
-                servoMotorLift.setPower(0.9);
+                servoMotorLift.setPower(-0.9);
             }
 
             if (gamepad2.dpad_down) {
-                servoMotorLift.setPower(-0.9);
+                servoMotorLift.setPower(0.9);
             }
 
             if (gamepad2.dpad_left){
