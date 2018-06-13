@@ -46,7 +46,7 @@ public class Autonomous extends LinearOpMode {
 
         waitForStart();
 
-        DriveRightTime(0.5, 1500);
+        DriveRightTime(0.5, 900);
         StopDrivingTime(0, 1000);
     }
 
