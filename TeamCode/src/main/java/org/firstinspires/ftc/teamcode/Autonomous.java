@@ -45,19 +45,10 @@ public class Autonomous extends LinearOpMode {
         servoArm.setPosition(0.0);
 
         waitForStart();
-        
-        DriveForwardTime(-0.5, 1300);
-        StopDrivingTime(0, 1000);
-        DriveRightTime(-0.5, 400);
-        StopDrivingTime(0, 1000);
-        TurnRightTime(0.5, 550);
-        StopDrivingTime(0, 750 );
-        DriveForwardTime(0.3, 700);
-        StopDrivingTime(0, 100);
 
-
+        DriveRightTime(0.5, 1500);
+        StopDrivingTime(0, 1000);
     }
-
 
     public void DriveForward(double power) {
         motorFrontLeft.setPower(-power);
