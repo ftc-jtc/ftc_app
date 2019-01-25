@@ -23,6 +23,7 @@ public class TeleOpMode_main extends LinearOpMode
     float fr_power;
     float lift_power;
     float lift2_power;
+    float lift3_power;
 
 
     @Override
@@ -40,23 +41,24 @@ public class TeleOpMode_main extends LinearOpMode
 
         while (opModeIsActive())
         {
-            fl_power = gamepad1.left_stick_y + gamepad1.right_trigger - gamepad1.left_trigger;
-            fr_power = -gamepad1.right_stick_y - gamepad1.right_trigger + gamepad1.left_trigger;
+            fl_power = gamepad1.left_stick_y + gamepad1.right_trigger - gamepad1.left_trigger - gamepad1.right_stick_y;
+            fr_power = -gamepad1.right_stick_y - gamepad1.right_trigger + gamepad1.left_trigger + gamepad1.left_stick_y ;
             lift_power = -gamepad2.right_stick_y ;
             lift2_power = gamepad2.right_stick_x;
+            lift3_power = gamepad2.left_stick_y;
 
             LeftDrive.setPower(fl_power);
             RightDrive.setPower(fr_power);
             LiftSysteem.setPower(Range.clip(lift_power, -0.8, 0.8 ));
             LiftSysteem2.setPower(Range.clip(lift2_power, -0.8, 0.8 ));
-            LiftSysteem3.setPower(lift_power);
+            LiftSysteem3.setPower(Range.clip(lift3_power, -0.3, 0.3));
 
             if (gamepad2.dpad_up) {
-                Collector.setPower(1.0);
+                Collector.setPower(1);
             }
 
             if (gamepad2.dpad_down){
-                Collector.setPower(-1.0);
+                Collector.setPower(-1);
 
             }
 

@@ -17,43 +17,41 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Autonomous extends LinearOpMode {
 
-    DcMotor motorFrontLeft = null;
-    DcMotor motorRearLeft = null;
-    DcMotor motorFrontRight = null;
-    DcMotor motorRearRight = null;
-    DcMotor motorLift = null;
-
-    Servo servoArmLift = null;
-    Servo servoArmLift2 = null;
-    CRServo servoMotorLift = null;
-    Servo servoArm = null;
+    DcMotor LeftDrive = null;
+    DcMotor RightDrive = null;
+    DcMotor Collector = null;
+    DcMotor LiftSysteem = null;
+    DcMotor LiftSysteem2 = null;
+    DcMotor LiftSysteem3 = null;
 
 
     @Override
-    public void runOpMode () throws InterruptedException {
-        motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
-        motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
-        motorRearLeft = hardwareMap.dcMotor.get("motorRearLeft");
-        motorRearRight = hardwareMap.dcMotor.get("motorRearRight");
-        motorLift = hardwareMap.dcMotor.get("motorLift");
-
-        servoArmLift = hardwareMap.servo.get("servoArmLift");
-        servoMotorLift = hardwareMap.crservo.get("servoMotorLift");
-        servoArmLift2 = hardwareMap.servo.get("servoArmLift2");
-        servoArm = hardwareMap.servo.get("servoArm");
-
-        servoArm.setPosition(0.0);
+    public void runOpMode() throws InterruptedException {
+        LeftDrive = hardwareMap.dcMotor.get("LeftDrive");
+        RightDrive = hardwareMap.dcMotor.get("RightDrive");
+        Collector = hardwareMap.dcMotor.get("Collector");
+        LiftSysteem = hardwareMap.dcMotor.get("LiftSysteem");
+        LiftSysteem2 = hardwareMap.dcMotor.get("LiftSysteem2");
+        LiftSysteem3 = hardwareMap.dcMotor.get("Liftsysteem3");
 
         waitForStart();
 
-        DriveRightTime(0.5, 900);
-        StopDrivingTime(0, 1000);
+        DriveForwardTime(1, 900);
+        DriveForwardTime(0, 100);
+        LiftTime(0.3, 2500);
+        LiftTime(-0.3, 3000);
+        TurnRightTime(0.35, 2000);
+        DriveForwardTime(1, 2200);
+        DriveForwardTime(0, 100);
+        LiftTime(0.3, 3000);
+
+
     }
 
     public void DriveForward(double power) {
-        motorFrontLeft.setPower(-power);
-        motorRearRight.setPower(power);
-        motorRearLeft.setPower(0);
+        LeftDrive.setPower(-power);
+        RightDrive.setPower(power);
+
     }
 
     public void DriveForwardTime(double power, long time) throws InterruptedException {
@@ -61,23 +59,10 @@ public class Autonomous extends LinearOpMode {
         Thread.sleep(time);
     }
 
-    public void DriveRight(double power) {
-        motorFrontRight.setPower(-power);
-        motorRearLeft.setPower(power);
-        motorRearRight.setPower(0);
-        motorFrontLeft.setPower(0);
-    }
-
-    public void DriveRightTime(double power, long time) throws InterruptedException {
-        DriveRight(power);
-        Thread.sleep(time);
-    }
 
     public void TurnRight(double power) {
-        motorFrontLeft.setPower(-power);
-        motorRearLeft.setPower(-power);
-        motorRearRight.setPower(0);
-        motorFrontRight.setPower(0);
+        LeftDrive.setPower(-power);
+        RightDrive.setPower(-power);
 
     }
 
@@ -87,10 +72,8 @@ public class Autonomous extends LinearOpMode {
     }
 
     public void TurnLeft(double power) {
-        motorFrontRight.setPower(power);
-        motorRearRight.setPower(power);
-        motorRearLeft.setPower(0);
-        motorFrontLeft.setPower(0);
+        LeftDrive.setPower(power);
+        RightDrive.setPower(power);
     }
 
     public void TurnLeftTime(double power, long time) throws InterruptedException {
@@ -98,23 +81,13 @@ public class Autonomous extends LinearOpMode {
         Thread.sleep(time);
     }
 
-    public void StopDriving(double power) {
-        motorRearLeft.setPower(power);
-        motorRearRight.setPower(power);
-        motorFrontLeft.setPower(power);
-        motorFrontRight.setPower(power);
-    }
-    public void StopDrivingTime(double power, long time) throws InterruptedException {
-        StopDriving(power);
-        Thread.sleep(time);
-    }
-    public void Arm(double position) {
-        servoArm.setPosition(position);
+
+    public void Lift3(double power) {
+        LiftSysteem3.setPower(power);
     }
 
-    public void ArmTime(double position, long time) throws InterruptedException {
-        Arm(position);
+    public void LiftTime(double power, long time) throws InterruptedException {
+        Lift3(power);
         Thread.sleep(time);
     }
-
 }
