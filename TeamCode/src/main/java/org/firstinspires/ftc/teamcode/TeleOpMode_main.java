@@ -17,7 +17,7 @@ public class TeleOpMode_main extends LinearOpMode
     private DcMotor LiftSysteem;
     private DcMotor LiftSysteem2;
     private DcMotor LiftSysteem3;
-    private DcMotor Collector;
+    private Servo Klep;
 
     float fl_power;
     float fr_power;
@@ -34,7 +34,7 @@ public class TeleOpMode_main extends LinearOpMode
         LiftSysteem = hardwareMap.dcMotor.get("LiftSysteem");
         LiftSysteem2 = hardwareMap.dcMotor.get("LiftSysteem2");
         LiftSysteem3 = hardwareMap.dcMotor.get("Liftsysteem3");
-        Collector = hardwareMap.dcMotor.get("Collector");
+        Klep = hardwareMap.servo.get("Klep");
 
         waitForStart();
 
@@ -54,20 +54,20 @@ public class TeleOpMode_main extends LinearOpMode
             LiftSysteem3.setPower(Range.clip(lift3_power, -0.3, 0.3));
 
             if (gamepad2.dpad_up) {
-                Collector.setPower(1);
+                Klep.setPosition(0.5);
             }
 
             if (gamepad2.dpad_down){
-                Collector.setPower(-1);
+                Klep.setPosition(0);
 
             }
 
             if (gamepad2.dpad_left){
-                Collector.setPower(0);
+                Klep.setPosition(0);
             }
 
             if (gamepad2.dpad_right){
-                Collector.setPower(0);
+                Klep.setPosition(0.5);
             }
 
             telemetry.addLine("left side | ")

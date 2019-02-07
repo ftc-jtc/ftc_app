@@ -19,7 +19,7 @@ public class Autonomous extends LinearOpMode {
 
     DcMotor LeftDrive = null;
     DcMotor RightDrive = null;
-    DcMotor Collector = null;
+    Servo Klep = null;
     DcMotor LiftSysteem = null;
     DcMotor LiftSysteem2 = null;
     DcMotor LiftSysteem3 = null;
@@ -29,7 +29,7 @@ public class Autonomous extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         LeftDrive = hardwareMap.dcMotor.get("LeftDrive");
         RightDrive = hardwareMap.dcMotor.get("RightDrive");
-        Collector = hardwareMap.dcMotor.get("Collector");
+        Klep = hardwareMap.servo.get("Klep");
         LiftSysteem = hardwareMap.dcMotor.get("LiftSysteem");
         LiftSysteem2 = hardwareMap.dcMotor.get("LiftSysteem2");
         LiftSysteem3 = hardwareMap.dcMotor.get("Liftsysteem3");
@@ -38,8 +38,8 @@ public class Autonomous extends LinearOpMode {
 
         DriveForwardTime(1, 900);
         DriveForwardTime(0, 100);
-        LiftTime(0.3, 2500);
-        LiftTime(-0.3, 3000);
+        LiftTime(0.2, 1500);
+        LiftTime(-0.2, 1500);
         TurnRightTime(0.35, 2000);
         DriveForwardTime(1, 2200);
         DriveForwardTime(0, 100);
@@ -71,15 +71,14 @@ public class Autonomous extends LinearOpMode {
         Thread.sleep(time);
     }
 
-    public void TurnLeft(double power) {
-        LeftDrive.setPower(power);
-        RightDrive.setPower(power);
-    }
+   public void Arm_yeet(double power) {
+        LiftSysteem2.setPower(power);
+   }
 
-    public void TurnLeftTime(double power, long time) throws InterruptedException {
-        TurnLeft(power);
+   public void Arm_yeettime(double power, long time) throws InterruptedException {
+        Arm_yeet(power);
         Thread.sleep(time);
-    }
+   }
 
 
     public void Lift3(double power) {
@@ -90,4 +89,5 @@ public class Autonomous extends LinearOpMode {
         Lift3(power);
         Thread.sleep(time);
     }
+
 }
